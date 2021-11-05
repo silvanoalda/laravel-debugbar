@@ -156,7 +156,7 @@ class QueryCollector extends PDOCollector
                     : "/:{$key}(?=(?:[^'\\\']*'[^'\\\']*')*[^'\\\']*$)/";
 
                 // Mimic bindValue and only quote non-integer and non-float data types
-                if (!is_int($binding) && !is_float($binding)) {
+                if (\DB::connection('AS400')->getDriverName() !== 'db2_ibmi_odbc' && !is_int($binding) && !is_float($binding)) {
                     if ($pdo) {
                         $binding = $pdo->quote($binding);
                     } else {
